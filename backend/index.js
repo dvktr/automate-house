@@ -3,7 +3,11 @@ const mqtt = require('mqtt');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const cors = require('cors');
+
+
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 3000;
 
 // Conecta ao MongoDB
