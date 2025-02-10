@@ -122,6 +122,7 @@ app.get('/sensor/last', async (req, res) => {
     }
 });
 
+console.log(app._router.stack.filter(r => r.route).map(r => r.route.path));
 
 // Inicia o servidor
 app.listen(port, () => {
