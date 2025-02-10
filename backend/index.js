@@ -65,8 +65,8 @@ mqttClient.on('message', async (topic, message) => {
         if (topic === 'esp32/window/control') {
             console.log('🪟 Estado da janela recebido:', data);
 
-            if (['open', 'closed'].includes(data.action)) {
-                const windowState = new WindowState({ state: data.action });
+            if (['open', 'closed'].includes(data.state)) {
+                const windowState = new WindowState({ state: data.state });
                 await windowState.save();
                 console.log('✅ Estado da janela salvo no MongoDB');
             }
