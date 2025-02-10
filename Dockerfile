@@ -17,7 +17,7 @@
     COPY backend/ ./backend/
     WORKDIR /app/backend
     RUN npm install
-    ENV MQTT_BROKER_URL=mqtt://broker:1883
+    ENV MQTT_BROKER_URL=mqtt://automate-house-production.up.railway.app:1883
     ENV MONGO_URI=mongodb+srv://automatehousemqtt:M3h5dQ1sAoZDOSVV@automatehouse.93szd.mongodb.net/sensor_db?retryWrites=true&w=majority&appName=AutomateHouse
     ENV PORT=3000
     EXPOSE 3000
