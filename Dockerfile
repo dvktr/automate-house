@@ -11,15 +11,16 @@
     ENV MONGO_INITDB_ROOT_PASSWORD=M3h5dQ1sAoZDOSVV
     CMD ["mongod"]
     
-    # ---- Backend (Node.js) ----
+# ---- Backend (Node.js) ----
     FROM node:18 AS backend
     WORKDIR /app
-    COPY backend/package.json backend/package-lock.json ./
+    COPY backend/ ./backend/
+    WORKDIR /app/backend
     RUN npm install
-    COPY backend .
     ENV MQTT_BROKER_URL=mqtt://broker:1883
     ENV MONGO_URI=mongodb+srv://automatehousemqtt:M3h5dQ1sAoZDOSVV@automatehouse.93szd.mongodb.net/sensor_db?retryWrites=true&w=majority&appName=AutomateHouse
     ENV PORT=3000
     EXPOSE 3000
     CMD ["node", "index.js"]
+    
     
