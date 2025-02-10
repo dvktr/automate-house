@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  broker:
+    build: ./broker
+    ports:
+      - "1883:1883"
+    networks:
+      - mqtt-network
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: automatehousemqtt
+      MONGO_INITDB_ROOT_PASSWORD: M3h5dQ1sAoZDOSVV
+    networks:
+      - mqtt-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - MQTT_BROKER_URL=mqtt://broker:1883
+      - MONGO_URI=mongodb+srv://automatehousemqtt:M3h5dQ1sAoZDOSVV@automatehouse.93szd.mongodb.net/sensor_db?retryWrites=true&w=majority&appName=AutomateHouse
+      - PORT=3000
+    depends_on:
+      - broker
+      - mongo
+    networks:
+      - mqtt-network
+
+networks:
+  mqtt-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
