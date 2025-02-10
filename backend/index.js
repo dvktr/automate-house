@@ -65,6 +65,7 @@ mqttClient.on('message', async (topic, message) => {
 });
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Rota para testar o servidor
 app.get('/', (req, res) => {
