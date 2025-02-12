@@ -97,15 +97,15 @@ app.get('/window/state', async (req, res) => {
 
 // Controla a janela via MQTT
 app.post('/window/control', async (req, res) => {
-    const { action } = req.body;
+    const { state } = req.body;
 
-    if (!['open', 'closed'].includes(action)) {
+    if (!['open', 'closed'].includes(state)) {
         return res.status(400).json({ message: "Ação inválida, use 'open' ou 'closed'" });
     }
 
     try {
-        mqttClient.publish('esp32/window/control', JSON.stringify({ action }));
-        res.json({ message: `Comando enviado: ${action}` });
+        mqttClient.publish('esp32/window/control', JSON.stringify({ state }));
+        res.json({ message: `Comando enviado: ${state}` });
     } catch (error) {
         console.error('❌ Erro ao enviar comando MQTT:', error);
         res.status(500).json({ message: "Erro interno no servidor" });
