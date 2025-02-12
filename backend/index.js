@@ -6,7 +6,11 @@ require('dotenv').config();
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: '*',  // Permite requisições de qualquer origem
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Permite esses métodos HTTP
+    allowedHeaders: ['Content-Type', 'Authorization'],  // Permite estes cabeçalhos
+}));
 const port = process.env.PORT || 3000;
 
 // Conecta ao MongoDB
